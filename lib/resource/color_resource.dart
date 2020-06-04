@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-extension _ColorSchemeEx on ColorScheme {
+extension ColorSchemeEx on ColorScheme {
   Color get alto10 => ColorResource(brightness).alto10;
   Color get alto20 => ColorResource(brightness).alto20;
   Color get main50 => ColorResource(brightness).main50;

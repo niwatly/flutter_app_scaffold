@@ -1,4 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app_scaffold/repository/session_repository.dart';
+
+import 'components/inapp_navigation/screen_arguments.dart';
 
 class Environment {
   static const String _hostProd = "hoge";
@@ -72,7 +75,20 @@ class Environment {
 }
 
 class DebugCondition {
-  const DebugCondition();
+  /// アプリ起動時、必ずログイン画面に遷移させます。ローカルストレージに保存してあるセッション情報は無視されます
+  final bool alwaysRequestLogin;
+
+  /// セッションの取得、更新等の処理をのっとります。SignUpのテスト等に便利です
+  final ISessionRepository sessionRepository;
+
+  ///アプリ起動時後の初回画面を任意の画面に変更します
+  final IScreenArguments homeScreenArguments;
+
+  const DebugCondition({
+    this.alwaysRequestLogin = false,
+    this.sessionRepository,
+    this.homeScreenArguments,
+  });
 
   const DebugCondition.asDisable() : this();
 }
