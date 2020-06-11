@@ -10,6 +10,3 @@ export 'controller/refresh_controller.dart';
 export 'refresh_config.dart';
 export 'refresh_selector.dart';
 export 'refresh_state.dart';
-
-
-

@@ -1,2 +1,1 @@
-class AssetResource {
-}
+class AssetResource {}

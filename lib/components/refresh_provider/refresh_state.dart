@@ -27,7 +27,6 @@ class RefreshState<V, E> {
         value: value ?? this.value,
         error: error ?? this.error,
         isRefreshing: isRefreshing ?? this.isRefreshing,
-        initialRefreshCompleted:
-            initialRefreshCompleted ?? this.initialRefreshCompleted,
+        initialRefreshCompleted: initialRefreshCompleted ?? this.initialRefreshCompleted,
       );
 }

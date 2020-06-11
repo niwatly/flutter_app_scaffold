@@ -76,39 +76,39 @@ class ColorResource {
 
   const ColorResource.dark()
       : this._(
-    alto10: _alto10Dark,
-    alto20: _alto20Dark,
-    main10: _main10Dark,
-    main20: _main20,
-    main50: _main50,
-    red50: _red50,
-    dark12: _light12,
-    dark26: _light30,
-    dark54: _light70,
-    dark87: _light100,
-    light12: _dark12,
-    light30: _dark26,
-    light70: _dark54,
-    light100: _dark87,
-  );
+          alto10: _alto10Dark,
+          alto20: _alto20Dark,
+          main10: _main10Dark,
+          main20: _main20,
+          main50: _main50,
+          red50: _red50,
+          dark12: _light12,
+          dark26: _light30,
+          dark54: _light70,
+          dark87: _light100,
+          light12: _dark12,
+          light30: _dark26,
+          light70: _dark54,
+          light100: _dark87,
+        );
 
   const ColorResource.light()
       : this._(
-    alto10: _alto10,
-    alto20: _alto20,
-    main10: _main10,
-    main20: _main20,
-    main50: _main50,
-    red50: _red50,
-    dark12: _dark12,
-    dark26: _dark26,
-    dark54: _dark54,
-    dark87: _dark87,
-    light12: _light12,
-    light30: _light30,
-    light70: _light70,
-    light100: _light100,
-  );
+          alto10: _alto10,
+          alto20: _alto20,
+          main10: _main10,
+          main20: _main20,
+          main50: _main50,
+          red50: _red50,
+          dark12: _dark12,
+          dark26: _dark26,
+          dark54: _dark54,
+          dark87: _dark87,
+          light12: _light12,
+          light30: _light30,
+          light70: _light70,
+          light100: _light100,
+        );
 
   static const Color _alto10 = Color(0xfffbfcfb);
   static const Color _alto20 = Color(0xfff2f2f2);

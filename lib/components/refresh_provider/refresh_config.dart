@@ -2,7 +2,7 @@ class RefreshConfig {
   final bool resetLifetime;
   final bool silent;
   final bool stack;
-  
+
   RefreshConfig({
     this.resetLifetime = false,
     this.silent = false,

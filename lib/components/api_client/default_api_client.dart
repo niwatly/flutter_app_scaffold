@@ -118,6 +118,17 @@ class DefaultApiClient with IApiClient {
   }
 
   @override
+  Future<Response> patch(
+    String path, {
+    Map<String, dynamic> query,
+    Map<String, dynamic> body,
+  }) async {
+    final request = await _createBaseRequest("PATCH", _uriBuilder(path, query));
+
+    return _sendRequest(request);
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) || other is DefaultApiClient && runtimeType == other.runtimeType && useHttp == other.useHttp && host == other.host && port == other.port && _headers == other._headers;
 

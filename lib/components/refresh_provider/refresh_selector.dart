@@ -29,24 +29,21 @@ class RefreshSelector<V, E> extends StatelessWidget {
       children: [
         Selector<RefreshState<V, E>, E>(
           selector: (context, x) => x.value == null ? x.error : null,
-          builder: (context, value, child) => value != null && onError != null
-              ? onError(context, value)
-              : const SizedBox(width: 0, height: 0),
+          builder: (context, value, child) => value != null && onError != null ? onError(context, value) : const SizedBox(width: 0, height: 0),
         ),
         Selector<RefreshState<V, E>, V>(
           selector: (context, x) => x.value,
-          builder: (context, value, child) => value != null
-              ? onValue(context, value)
-              : const SizedBox(width: 0, height: 0),
+          builder: (context, value, child) => value != null ? onValue(context, value) : const SizedBox(width: 0, height: 0),
         ),
-        Selector<RefreshState<V, E>, bool>(
-          selector: (context, x) => x.isRefreshing && !disableLoading,
-          builder: (context, value, child) => AnimatedOpacity(
-            opacity: value ? 1 : 0,
-            duration: const Duration(milliseconds: 200),
-            child: onLoading != null ? onLoading(context) : defaultOnLoading,
+        if (!disableLoading)
+          Selector<RefreshState<V, E>, bool>(
+            selector: (context, x) => x.isRefreshing,
+            builder: (context, value, child) => AnimatedOpacity(
+              opacity: value ? 1 : 0,
+              duration: const Duration(milliseconds: 200),
+              child: onLoading != null ? onLoading(context) : defaultOnLoading(context),
+            ),
           ),
-        ),
       ],
     );
 
@@ -55,8 +52,7 @@ class RefreshSelector<V, E> extends StatelessWidget {
     }
 
     if (controller != null) {
-      ret = StateNotifierProvider<RefreshController<V, E>,
-          RefreshState<V, E>>.value(
+      ret = StateNotifierProvider<RefreshController<V, E>, RefreshState<V, E>>.value(
         value: controller(context),
         child: ret,
       );
@@ -72,9 +68,7 @@ class _Refresh<V, E> extends SingleChildStatelessWidget {
   @override
   Widget buildWithChild(BuildContext context, Widget child) {
     return RefreshIndicator(
-      onRefresh: () => context
-          .read<RefreshController<V, E>>()
-          .requestCleanRefresh(silent: true),
+      onRefresh: () => context.read<RefreshController<V, E>>().requestCleanRefresh(silent: true),
       child: child,
     );
   }

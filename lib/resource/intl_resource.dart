@@ -4,6 +4,7 @@ class I18n {
   factory I18n() => _instance ??= I18n._();
 
   String get appName => "appname";
+
   ///#region エラーメッセージ
 
   String get errorInvalidUri => "通信に失敗しました。無効なパラメータです";
@@ -29,6 +30,6 @@ class I18n {
   ///#endregion
 
   /// #region タイトル
-///
+  ///
   /// #endregion
 }

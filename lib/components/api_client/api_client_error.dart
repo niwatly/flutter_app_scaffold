@@ -61,8 +61,7 @@ class UnsuccessfulStatusError implements IApiClientError {
   const UnsuccessfulStatusError(this.response);
 
   @override
-  String toString() =>
-      "$runtimeType（uri = ${response?.request?.url}, code = ${response?.statusCode?.toString() ?? "null"}, body = ${response?.body ?? "null"}）";
+  String toString() => "$runtimeType（uri = ${response?.request?.url}, code = ${response?.statusCode?.toString() ?? "null"}, body = ${response?.body ?? "null"}）";
 }
 
 /// 想定外のエラー
@@ -72,8 +71,7 @@ class UnknownError implements IApiClientError {
   const UnknownError(this.e);
 
   @override
-  String toString() =>
-      "$runtimeType（type = ${e?.runtimeType ?? "null"}, message = ${e?.toString() ?? "null"}）";
+  String toString() => "$runtimeType（type = ${e?.runtimeType ?? "null"}, message = ${e?.toString() ?? "null"}）";
 
   @override
   ApiClientErrorKind get kind => ApiClientErrorKind.Unknown;

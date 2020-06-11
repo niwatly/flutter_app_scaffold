@@ -89,9 +89,9 @@ extension ListHelper<T> on Iterable<T> {
   }
 
   String toFoldString({String delimiter = ", "}) => fold("", (acc, v) {
-    final prefix = acc.isNotEmpty ? "$acc$delimiter" : "";
-    return "$prefix$v";
-  });
+        final prefix = acc.isNotEmpty ? "$acc$delimiter" : "";
+        return "$prefix$v";
+      });
 }
 
 extension ObjectHelper<T extends Object> on T {
@@ -108,7 +108,7 @@ extension ImageProviderHelper<T> on ImageProvider<T> {
     final subject = ReplaySubject<ImageInfo>(maxSize: 1);
 
     final listener = ImageStreamListener(
-          (image, sync) => subject.add(image),
+      (image, sync) => subject.add(image),
       onError: (e, st) {
         subject.addError(e);
       },

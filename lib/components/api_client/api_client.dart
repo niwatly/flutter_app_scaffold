@@ -6,27 +6,33 @@ typedef UriBuilder = Uri Function(String path, Map<String, dynamic> query);
 
 abstract class IApiClient {
   Future<Response> get(
-      String path, {
-        Map<String, dynamic> query,
-      });
+    String path, {
+    Map<String, dynamic> query,
+  });
 
   Future<Response> post(
-      String path, {
-        Map<String, dynamic> query,
-        Map<String, dynamic> body,
-      });
+    String path, {
+    Map<String, dynamic> query,
+    Map<String, dynamic> body,
+  });
 
   Future<Response> put(
-      String path, {
-        Map<String, dynamic> query,
-        Map<String, dynamic> body,
-      });
+    String path, {
+    Map<String, dynamic> query,
+    Map<String, dynamic> body,
+  });
 
   Future<Response> delete(
-      String path, {
-        Map<String, dynamic> query,
-        Map<String, dynamic> body,
-      });
+    String path, {
+    Map<String, dynamic> query,
+    Map<String, dynamic> body,
+  });
+
+  Future<Response> patch(
+    String path, {
+    Map<String, dynamic> query,
+    Map<String, dynamic> body,
+  });
 }
 
 String _makeQuery(Map<String, dynamic /*String|Iterable<String>*/ > queryParameters) {

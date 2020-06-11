@@ -13,8 +13,7 @@ class SimpleRefreshController<V, E> extends RefreshController<V, E> {
         );
 
   @override
-  Stream<RefreshState<V, E>> _doRefresh(
-      RefreshConfig config, RefreshState<V, E> currentState) async* {
+  Stream<RefreshState<V, E>> _doRefresh(RefreshConfig config, RefreshState<V, E> currentState) async* {
     if (!config.silent) {
       yield currentState = currentState.copyWith(isRefreshing: true);
     }
