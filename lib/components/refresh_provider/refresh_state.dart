@@ -17,7 +17,7 @@ class RefreshState<V, E> {
 
   bool get hasError => error != null;
 
-  RefreshState copyWith({
+  RefreshState<V, E> copyWith({
     V value,
     E error,
     bool isRefreshing,
