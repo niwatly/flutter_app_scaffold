@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_components/api_client/api_client_error.dart';
-import 'package:flutter_app_components/inapp_navigation/dialog_helper.dart';
+import 'package:flutter_app_components/inapp_navigation/dialog_builder.dart';
 import 'package:flutter_app_components/inapp_navigation/inapp_launcher.dart';
 import 'package:flutter_app_components/inapp_navigation/inapp_router.dart';
 import 'package:flutter_app_components/logger/logger.dart';

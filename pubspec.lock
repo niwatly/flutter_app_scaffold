@@ -109,10 +109,10 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: d4adca0222268f3059b6d7f2e93a848caf00c6b8
+      resolved-ref: "8d337afeec31dc263b1b4909b51b69ea8313a2a2"
       url: "git@github.com:niwatly/flutter_app_components.git"
     source: git
-    version: "0.0.3"
+    version: "0.0.5"
   flutter_launcher_icons:
     dependency: "direct main"
     description:

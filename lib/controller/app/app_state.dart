@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app_components/inapp_navigation/dialog_helper.dart';
+import 'package:flutter_app_components/inapp_navigation/dialog_builder.dart';
 
 class AppState {
   /// BuildContextの不要なNavigatorへのアクセスを提供する
