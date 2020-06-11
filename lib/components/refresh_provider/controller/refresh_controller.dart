@@ -56,6 +56,8 @@ abstract class RefreshController<V, E> extends StateNotifier<RefreshState<V, E>>
     }
   }
 
+  Future<V> requestSilentRefresh() => requestCleanRefresh(silent: true);
+
   Future<V> requestCleanRefresh({silent = false}) async {
     final config = RefreshConfig(silent: silent);
 
