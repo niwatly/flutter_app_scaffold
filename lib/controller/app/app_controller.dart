@@ -78,6 +78,8 @@ class AppController extends StateNotifier<AppState> with LocatorMixin {
 
   Future<T> showLoadingDialog<T>(Future future, {String message}) => showDialog(dialogBuilder.loading(future: future, message: message));
 
+  Future<int> showPickerDialog(List<String> candidates, {String title}) => showDialog(dialogBuilder.pick(candidates, title: title));
+
   Future openUrl(
     String uriString, {
     String errorMessage,

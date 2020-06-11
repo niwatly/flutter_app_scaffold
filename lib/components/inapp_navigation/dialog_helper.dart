@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'floating_dialog.dart';
+
 class DialogRoute<T> extends PopupRoute<T> {
   final WidgetBuilder builder;
   DialogRoute({
@@ -45,6 +47,7 @@ class DialogBuilder {
   final TextStyle okStyle;
   final Widget loadingWidget;
   final TextStyle loadingMessageStyle;
+  final Color contentBackgroundColor;
 
   DialogBuilder({
     @required this.okLabel,
@@ -55,6 +58,7 @@ class DialogBuilder {
     @required this.okStyle,
     @required this.loadingWidget,
     @required this.loadingMessageStyle,
+    @required this.contentBackgroundColor,
   });
 
   Route error(String message) => DialogRoute(
@@ -119,6 +123,37 @@ class DialogBuilder {
         ),
       );
 
+  Route<int> pick(List<String> candidates, {String title, String message}) => DialogRoute<int>(
+        builder: (context) => FloatingDialog(
+          onClose: () => Navigator.of(context).pop(-1),
+          title: title,
+          contentBackgroundColor: contentBackgroundColor,
+          child: ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            separatorBuilder: (context, index) => const FractionallySizedBox(
+              widthFactor: 0.8,
+              child: Divider(),
+            ),
+            padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
+            itemCount: candidates.length,
+            itemBuilder: (context, index) => InkWell(
+              onTap: () => Navigator.of(context).pop(index),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  candidates[index],
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: DialogTheme.of(context).contentTextStyle,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
   Route<T> loading<T>({
     Future<T> future,
     String message,
@@ -176,6 +211,7 @@ class DialogBuilder {
     List<Widget> actions,
   }) =>
       AlertDialog(
+        backgroundColor: contentBackgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),

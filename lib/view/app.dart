@@ -75,6 +75,7 @@ class App extends StatelessWidget {
         /// アプリ全体に関するController
         StateNotifierProvider<AppController, AppState>(create: (context) {
           final dialogBuilder = DialogBuilder(
+            contentBackgroundColor: context.colors.light100,
             okLabel: I18n().labelOk,
             cancelLabel: I18n().labelCancel,
             confirmLabel: I18n().labelConfirm,
