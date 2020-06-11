@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app_components/inapp_navigation/screen_arguments.dart';
 import 'package:flutter_app_scaffold/repository/session_repository.dart';
-
-import 'components/inapp_navigation/screen_arguments.dart';
 
 class Environment {
   static const String _hostProd = "hoge";

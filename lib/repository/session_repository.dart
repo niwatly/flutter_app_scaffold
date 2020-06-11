@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter_app_scaffold/components/api_client/api_client.dart';
-import 'package:flutter_app_scaffold/components/api_client/api_client_error.dart';
-import 'package:flutter_app_scaffold/components/api_client/api_repository.dart';
-import 'package:flutter_app_scaffold/components/extension/extension.dart';
+import 'package:flutter_app_components/api_client/api_client.dart';
+import 'package:flutter_app_components/api_client/api_client_error.dart';
+import 'package:flutter_app_components/api_client/api_repository.dart';
 import 'package:flutter_app_scaffold/view/app.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_app_scaffold/common.dart';
 import 'api/api_session.dart';
 
 abstract class ISessionRepository {

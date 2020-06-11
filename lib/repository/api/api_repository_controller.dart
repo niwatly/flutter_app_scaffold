@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_app_scaffold/components/api_client/api_client.dart';
-import 'package:flutter_app_scaffold/components/api_client/api_repository.dart';
+import 'package:flutter_app_components/api_client/api_client.dart';
+import 'package:flutter_app_components/api_client/api_repository.dart';
 import 'package:flutter_app_scaffold/controller/session/session_state.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:state_notifier/state_notifier.dart';

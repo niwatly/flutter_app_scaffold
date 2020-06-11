@@ -1,4 +1,5 @@
-import 'package:flutter_app_scaffold/components/extension/extension.dart';
+import 'package:flutter_app_scaffold/common.dart';
+import 'package:flutter_app_components/utility/extension.dart';
 import 'package:flutter_app_scaffold/controller/app/app_controller.dart';
 import 'package:flutter_app_scaffold/controller/session/session_state.dart';
 import 'package:flutter_app_scaffold/controller/splash/splash_screen_state.dart';

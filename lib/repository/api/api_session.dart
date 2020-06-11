@@ -1,4 +1,4 @@
-import 'package:flutter_app_scaffold/components/api_client/json_helper.dart';
+import 'package:flutter_app_components/api_client/json_helper.dart';
 
 class ApiSession {
   final int userId;

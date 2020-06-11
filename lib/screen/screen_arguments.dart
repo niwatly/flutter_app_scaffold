@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/screen_arguments.dart';
+import 'package:flutter_app_components/inapp_navigation/screen_arguments.dart';
 import 'package:flutter_app_scaffold/screen/home/home_screen.dart';
 import 'package:flutter_app_scaffold/screen/login/login_screen.dart';
 

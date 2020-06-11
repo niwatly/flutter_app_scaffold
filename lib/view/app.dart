@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_components/api_client/api_client_error.dart';
+import 'package:flutter_app_components/inapp_navigation/dialog_helper.dart';
+import 'package:flutter_app_components/inapp_navigation/inapp_launcher.dart';
+import 'package:flutter_app_components/inapp_navigation/inapp_router.dart';
+import 'package:flutter_app_components/logger/logger.dart';
+import 'package:flutter_app_components/refresh_provider/controller/refresh_controller.dart';
 import 'package:flutter_app_scaffold/common.dart';
-import 'package:flutter_app_scaffold/components/api_client/api_client_error.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/dialog_helper.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/inapp_launcher.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/inapp_router.dart';
-import 'package:flutter_app_scaffold/components/logger/logger.dart';
-import 'package:flutter_app_scaffold/components/refresh_provider/controller/refresh_controller.dart';
 import 'package:flutter_app_scaffold/controller/app/app_controller.dart';
 import 'package:flutter_app_scaffold/controller/app/app_state.dart';
 import 'package:flutter_app_scaffold/controller/session/session_controller.dart';
@@ -25,8 +25,6 @@ import '../environment.dart';
 ILogger logger;
 
 class App extends StatelessWidget {
-  // ここをconstにするとクラッシュしてしまうのでとりあえずignoreする
-  // ignore: prefer_const_constructors_in_immutables
   final Environment env;
 
   const App._(this.env);
@@ -73,34 +71,9 @@ class App extends StatelessWidget {
         ),
 
         /// アプリ全体に関するController
-        StateNotifierProvider<AppController, AppState>(create: (context) {
-          final dialogBuilder = DialogBuilder(
-            contentBackgroundColor: context.colors.light100,
-            okLabel: I18n().labelOk,
-            cancelLabel: I18n().labelCancel,
-            confirmLabel: I18n().labelConfirm,
-            errorLabel: I18n().labelError,
-            cancelStyle: context.texts.bodyText2.apply(
-              color: context.colors.dark26,
-            ),
-            okStyle: context.texts.subtitle2.apply(
-              color: context.colors.main50,
-            ),
-            loadingWidget: FractionallySizedBox(
-              widthFactor: 0.2,
-              child: FittedBox(
-                child: SpinKitCircle(
-                  color: context.colors.main50,
-                ),
-              ),
-            ),
-            loadingMessageStyle: context.texts.subtitle1.apply(
-              color: context.colors.main50,
-            ),
-          );
-
-          return AppController(dialogBuilder);
-        }),
+        StateNotifierProvider<AppController, AppState>(
+          create: (context) => AppController(),
+        ),
 
         /// 認証情報に関するController
         StateNotifierProvider<SessionController, SessionState>(
@@ -135,6 +108,29 @@ class _App extends StatelessWidget {
       supportedLocales: const [
         Locale("ja", ""),
       ],
+      builder: (context, child) => DialogBuilder(
+        okLabel: I18n().labelOk,
+        cancelLabel: I18n().labelCancel,
+        confirmLabel: I18n().labelConfirm,
+        errorLabel: I18n().labelError,
+        cancelStyle: context.texts.bodyText2.apply(
+          color: context.colors.dark26,
+        ),
+        okStyle: context.texts.subtitle2.apply(
+          color: context.colors.main50,
+        ),
+        loadingWidget: FractionallySizedBox(
+          widthFactor: 0.2,
+          child: FittedBox(
+            child: SpinKitCircle(
+              color: context.colors.main50,
+            ),
+          ),
+        ),
+        loadingMessageStyle: context.texts.subtitle1,
+        child: child,
+        key: context.select<AppState, GlobalKey<DialogBuilderState>>((x) => x.dialogBuilderKey),
+      ),
       theme: ThemeResource.getDefaultTheme(Brightness.light),
       darkTheme: ThemeResource.getDefaultTheme(Brightness.dark),
       home: const SplashScreen(),

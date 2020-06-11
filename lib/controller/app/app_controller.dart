@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_components/inapp_navigation/inapp_launcher.dart';
+import 'package:flutter_app_components/inapp_navigation/inapp_router.dart';
+import 'package:flutter_app_components/inapp_navigation/screen_arguments.dart';
 import 'package:flutter_app_scaffold/common.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/dialog_helper.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/inapp_launcher.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/inapp_router.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/screen_arguments.dart';
 import 'package:flutter_app_scaffold/resource/intl_resource.dart';
 import 'package:flutter_app_scaffold/view/app.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -21,9 +20,7 @@ class AppController extends StateNotifier<AppState> with LocatorMixin {
   /// URLをScreenArgumentsに変換するためのRouter
   InAppRouter get router => launcher.router;
 
-  final DialogBuilder dialogBuilder;
-
-  AppController(this.dialogBuilder) : super(AppState());
+  AppController() : super(AppState());
 
   @override
   void initState() {
@@ -70,22 +67,22 @@ class AppController extends StateNotifier<AppState> with LocatorMixin {
 
   Future<T> showDialog<T>(Route<T> route) => state.navigator.push<T>(route);
 
-  Future showErrorDialog(String message) => showDialog(dialogBuilder.error(message));
+  Future showErrorDialog(String message) => showDialog(state.dialogBuilder.error(message));
 
-  Future showConfirmDialog(String message) => showDialog(dialogBuilder.confirm(message));
+  Future showConfirmDialog(String message) => showDialog(state.dialogBuilder.confirm(message));
 
-  Future showAskDialog({String title, String message}) => showDialog(dialogBuilder.ask(title: title, message: message));
+  Future showAskDialog({String title, String message}) => showDialog(state.dialogBuilder.ask(title: title, message: message));
 
-  Future<T> showLoadingDialog<T>(Future future, {String message}) => showDialog(dialogBuilder.loading(future: future, message: message));
+  Future<T> showLoadingDialog<T>(Future future, {String message}) => showDialog(state.dialogBuilder.loading(future: future, message: message));
 
-  Future<int> showPickerDialog(List<String> candidates, {String title}) => showDialog(dialogBuilder.pick(candidates, title: title));
+  Future<int> showPickerDialog(List<String> candidates, {String title}) => showDialog(state.dialogBuilder.pick(candidates, title: title));
 
   Future openUrl(
     String uriString, {
     String errorMessage,
   }) async {
     final _errorMessage = errorMessage ?? I18n().errorRouteNotFound;
-    final showError = () => showDialog(read<DialogBuilder>().error(_errorMessage));
+    final showError = () => showDialog(state.dialogBuilder.error(_errorMessage));
 
     try {
       final res = await canLaunch(uriString);
@@ -115,7 +112,7 @@ class AppController extends StateNotifier<AppState> with LocatorMixin {
     assert(uri != null || uriString != null);
 
     final _errorMessage = errorMessage ?? I18n().errorRouteNotFound;
-    final showError = () => showDialog(read<DialogBuilder>().error(_errorMessage));
+    final showError = () => showDialog(state.dialogBuilder.error(_errorMessage));
 
     Uri toOpenUri;
 

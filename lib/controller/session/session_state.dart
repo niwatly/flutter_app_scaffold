@@ -1,4 +1,4 @@
-import 'package:flutter_app_scaffold/components/api_client/api_client.dart';
+import 'package:flutter_app_components/api_client/api_client.dart';
 import 'package:flutter_app_scaffold/repository/api/api_session.dart';
 import 'package:flutter_app_scaffold/repository/session_repository.dart';
 

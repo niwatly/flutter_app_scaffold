@@ -27,7 +27,7 @@ dependencies:
 
   # StateNotifierを使って状態管理したい
   # https://pub.dev/packages/state_notifier
-  state_notifier: ^0.4.0
+  state_notifier: ^0.5.0
 
   # StateNotifierをWidgetTree上で保持したい
   # https://pub.dev/packages/flutter_state_notifier
@@ -35,7 +35,7 @@ dependencies:
 
   # InheritedWidgetを利用した状態管理を楽に行いたい
   # https://pub.dev/packages/provider
-  provider: ^4.1.1
+  provider: ^4.1.3
 
   # StatelessWidgetの中でもTabControllerやAnimationControllerを生成したい
   # https://pub.dev/packages/vsync_provider
@@ -43,7 +43,7 @@ dependencies:
 
   # RxOperatorを使いたい
   # https://pub.dev/packages/rxdart
-  rxdart: ^0.24.0
+  rxdart: ^0.24.1
 
   # 複雑なRoutingを楽に書きたい
   # https://pub.dev/packages/fluro
@@ -59,7 +59,7 @@ dependencies:
 
   # アプリバージョンとかを取得したい
   # https://pub.dev/packages/package_info#-installing-tab-
-  package_info: ^0.4.0+18
+  package_info: ^0.4.1
 
   # string.Formatしたい
   # https://pub.dev/packages/sprintf
@@ -67,7 +67,7 @@ dependencies:
 
   # URLを外部ブラウザで開きたい
   # https://pub.dev/packages/url_launcher
-  url_launcher: ^5.4.7
+  url_launcher: ^5.4.10
 
   # Textの文字サイズを自動で調整したい
   auto_size_text: ^2.1.0
@@ -88,9 +88,14 @@ dependencies:
   # https://pub.dev/packages/http
   http: ^0.12.1
 
+  flutter_app_components:
+    git:
+      url: "git@github.com:niwatly/flutter_app_components.git"
+      ref: master
+
   # アプリのローカルストレージに値を保存したい
   # https://pub.dev/packages/shared_preferences
-  shared_preferences: ^0.5.7+2
+  shared_preferences: ^0.5.7+3
 
 dev_dependencies:
   flutter_test:

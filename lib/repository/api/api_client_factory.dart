@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
-import 'package:flutter_app_scaffold/components/api_client/api_client.dart';
-import 'package:flutter_app_scaffold/components/api_client/default_api_client.dart';
+import 'package:flutter_app_components/api_client/api_client.dart';
+import 'package:flutter_app_components/api_client/default_api_client.dart';
 import 'package:flutter_app_scaffold/environment.dart';
 import 'package:flutter_app_scaffold/repository/api/api_session.dart';
 import 'package:package_info/package_info.dart';

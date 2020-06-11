@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_scaffold/common.dart';
-import 'package:flutter_app_scaffold/components/refresh_provider/refresh_provider.dart';
 import 'package:flutter_app_scaffold/controller/app/app_controller.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen();
@@ -19,6 +19,14 @@ class HomeScreen extends StatelessWidget {
                   message: "この操作には時間がかかることがあります...",
                 ),
             child: const Text("Welcome to home screen!"),
+          ),
+          RaisedButton(
+            onPressed: () async {
+              final res = await context.read<AppController>().showAskDialog(message: "Yes? No? ");
+
+              logger.info("$res");
+            },
+            child: const Text("a...a,,,"),
           ),
           RaisedButton(
             onPressed: () async {

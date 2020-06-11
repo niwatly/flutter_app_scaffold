@@ -104,6 +104,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_app_components:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: d4adca0222268f3059b6d7f2e93a848caf00c6b8
+      url: "git@github.com:niwatly/flutter_app_components.git"
+    source: git
+    version: "0.0.3"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -202,7 +211,7 @@ packages:
       name: package_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0+18"
+    version: "0.4.1"
   path:
     dependency: transitive
     description:
@@ -272,7 +281,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.2"
+    version: "4.1.3"
   pub_semver:
     dependency: transitive
     description:
@@ -354,7 +363,7 @@ packages:
       name: state_notifier
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0"
+    version: "0.5.0"
   stream_channel:
     dependency: transitive
     description:

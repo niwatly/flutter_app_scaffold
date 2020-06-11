@@ -1,4 +1,4 @@
-import 'package:flutter_app_scaffold/components/extension/extension.dart';
+import 'package:flutter_app_components/utility/extension.dart';
 import 'package:flutter_app_scaffold/controller/session/session_state.dart';
 import 'package:flutter_app_scaffold/environment.dart';
 import 'package:flutter_app_scaffold/repository/api/api_client_factory.dart';

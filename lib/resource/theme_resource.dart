@@ -38,6 +38,13 @@ class ThemeResource {
     );
 
     return ThemeData(
+      dialogTheme: DialogTheme(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        titleTextStyle: customize.subtitle1,
+        contentTextStyle: customize.bodyText2,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         alignLabelWithHint: true,
         fillColor: colors.main20.withOpacity(0.1),
