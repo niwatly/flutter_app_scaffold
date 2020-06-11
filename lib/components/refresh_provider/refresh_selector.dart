@@ -1,15 +1,38 @@
 import 'refresh_provider.dart';
 
+/// [RefreshState] を3つ状態に分けて、状態ごとにUIを出し分ける
+///
+/// また、[RefreshSelector.onValue]で与えられたWidgetは[RefreshState.isSuccess]のときにしかBuildしない。これにより、無駄なnullチェックを省略できる
 class RefreshSelector<V, E> extends StatelessWidget {
+  /// デフォルトのローディング表示用Widget
+  /// 同じ設定を何度もコンストラクタで渡すのが面倒なので、static変数で1つだけ用意する
   static Widget Function(BuildContext context) defaultOnLoading = (context) => const CircularProgressIndicator();
 
+  /// [RefreshState.isSuccess]時のWidgetのBuilder
   final Widget Function(BuildContext context, V value) onValue;
+
+  /// [RefreshState.hasError]時のWidgetのBuilder
   final Widget Function(BuildContext context, E error) onError;
+
+  /// [RefreshState.isRefreshing]中のWidgetのBuilder
   final Widget Function(BuildContext context) onLoading;
 
+  /// 下位Widgetを[RefreshIndicator]でラップするかどうか
+  /// [RefreshIndicator.onRefresh]の設定値が冗長になりがちなので、そこの記述量を抑えたい
   final bool enablePullRefresh;
+
+  /// ローディング表示をしない
+  ///
+  /// 次のようなユースケースで便利
+  /// - e.g. 通信が完了するまでWidgetを隠したい。別の箇所でもRefreshSelectorを使っていて、ローディング表示はそちらで行うので、こちらのローディング表示は不要である
   final bool disableLoading;
+
+  /// [onValue]と[onError]と[onLoading]をStackで重ねるときのfitパラメータ
   final StackFit fit;
+
+  /// [RefreshController] の生成方法
+  ///
+  /// 指定されなかった場合は、すでに上位で[RefreshController]が宣言されていると仮定し、[StateNotifierProvider]の宣言をSkipする
   final RefreshController<V, E> Function(BuildContext context) controller;
 
   const RefreshSelector({
