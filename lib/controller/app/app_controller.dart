@@ -30,9 +30,7 @@ class AppController extends StateNotifier<AppState> with LocatorMixin {
     super.initState();
 
     final router = InAppRouter(routeDefines: {});
-    launcher = InAppLauncher(
-      router: router,
-    );
+    launcher = InAppLauncher(router);
   }
 
   Future<T> showScreen<T>(

@@ -1,6 +1,6 @@
 import 'package:fluro/fluro.dart' hide RouteNotFoundException;
 import 'package:flutter/material.dart';
-import 'package:flutter_app_scaffold/components/extension/extension.dart';
+import '../extension/extension.dart';
 import 'screen_arguments.dart';
 
 typedef RouteGenerator = IScreenArguments Function(Map<String, List<String>> params);

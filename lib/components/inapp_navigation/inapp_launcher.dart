@@ -1,29 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/inapp_router.dart';
-import 'package:flutter_app_scaffold/components/inapp_navigation/screen_arguments.dart';
+import 'package:flutter/foundation.dart';
+
+import 'inapp_router.dart';
+import 'screen_arguments.dart';
 
 class InAppLauncher {
   static Function(dynamic e, StackTrace st) errorCallback;
 
-  final String deepLinkHost;
-  final String customUrlScheme;
   final InAppRouter router;
 
-  bool get enableInAppNavigation => customUrlScheme != null;
-  bool get enableDeepLinkNavigation => deepLinkHost != null;
-
-  const InAppLauncher({
-    @required this.router,
-    this.deepLinkHost,
-    this.customUrlScheme,
-  });
+  const InAppLauncher(this.router);
 
   Future<InAppLaunchResult> handleUri({
     @required Uri uri,
     bool disableInAppNavigation = false,
   }) async {
     if (uri.scheme == "http" || uri.scheme == "https") {
-      if (enableDeepLinkNavigation && uri.host == deepLinkHost) {
+      if (router.enableDeepLinkNavigation && uri.host == router.deepLinkHost) {
         // FirebaseDynamicLinkから受け取ったDeepLinkがここにくる
         //
         // PathをCustomUrlSchemeとして処理し、アプリ内遷移する
@@ -51,7 +43,7 @@ class InAppLauncher {
         // アプリ外遷移する（任意のhttpリンクをブラウザで開く）
         return InAppLaunchResult.browser(uri);
       }
-    } else if (enableInAppNavigation && uri.scheme == customUrlScheme) {
+    } else if (router.enableInAppNavigation && uri.scheme == router.customUrlScheme) {
       // CustomUrlSchemeがここにくる
       //
       // Host+PathをCustomUrlSchemeとして処理し、アプリ内遷移する
