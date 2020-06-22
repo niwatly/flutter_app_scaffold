@@ -1,16 +1,16 @@
 import 'package:flutter_app_components/api_client/json_helper.dart';
 
-class ApiSession {
+class Session {
   final int userId;
   final String token;
 
-  const ApiSession({
+  const Session({
     this.userId,
     this.token,
   });
 
-  factory ApiSession.fromJson(Map<String, dynamic> json) {
-    return ApiSession(
+  factory Session.fromJson(Map<String, dynamic> json) {
+    return Session(
       userId: json.integer("user_id"),
       token: json.string("token"),
     );

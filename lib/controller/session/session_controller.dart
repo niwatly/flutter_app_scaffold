@@ -1,12 +1,16 @@
+import 'dart:io';
+
+import 'package:device_info/device_info.dart';
+import 'package:flutter_app_components/api_client/api_client.dart';
+import 'package:flutter_app_components/api_client/default_api_client.dart';
 import 'package:flutter_app_components/utility/extension.dart';
+import 'package:flutter_app_scaffold/controller/session/session.dart';
 import 'package:flutter_app_scaffold/controller/session/session_state.dart';
-import 'package:flutter_app_scaffold/environment.dart';
-import 'package:flutter_app_scaffold/repository/api/api_client_factory.dart';
-import 'package:flutter_app_scaffold/repository/api/api_session.dart';
 import 'package:flutter_app_scaffold/repository/session_repository.dart';
-import 'package:flutter_app_scaffold/resource/intl_resource.dart';
-import 'package:flutter_app_scaffold/view/app.dart';
+import 'package:package_info/package_info.dart';
 import 'package:state_notifier/state_notifier.dart';
+
+import '../../environment.dart';
 
 class SessionController extends StateNotifier<SessionState> with LocatorMixin {
   ISessionRepository _sessionRepository;
@@ -19,43 +23,18 @@ class SessionController extends StateNotifier<SessionState> with LocatorMixin {
   void initState() {
     super.initState();
 
-    logger.info("session controller created.");
-
     _setDefaultState();
 
     // SessionRepository用のApiClientを生成し、初回のロードを実行する
     final env = read<Environment>();
 
-    _sessionRepository = env.debugCondition.sessionRepository ?? SessionRepository(createAnonymousApiClient(env));
+    _sessionRepository = env.debugCondition.sessionRepository ?? SessionRepository(createDefaultAPiClient());
 
     _loadSession();
 
     final stream = asStream();
 
     onSessionChanged = stream.distinct();
-  }
-
-  /// メールアドレスとパスワードをAPIサーバに送信し、認証情報を更新します
-  ///
-  /// また、認証情報の獲得に成功したときは、それをFirebaseにセットします
-  Future<ApiSession> loginEmail(String email, String password) async {
-    try {
-      final result = await _sessionRepository.postEmailAuth(email, password);
-
-      final session = result.session;
-
-      _setSuccessState(session);
-
-      return session;
-    } on EmailAuthError catch (e, st) {
-      recordError(e, st);
-      // メールアドレスの認証に失敗した
-      throw LoginFailedException(
-        LoginFailedProviderKind.Email,
-        LoginFailedReasonKind.UnAuthorized,
-        I18n().errorEmailAuthFailed,
-      );
-    }
   }
 
   /// 認証情報を取得し、その結果に応じて状態を変化させます
@@ -70,8 +49,7 @@ class SessionController extends StateNotifier<SessionState> with LocatorMixin {
       _setSuccessState(session);
     } on SessionGetError catch (e) {
       _setErrorState(error: e);
-    } catch (e, st) {
-      recordError(e, st);
+    } catch (e) {
       _setErrorState();
     }
   }
@@ -79,15 +57,13 @@ class SessionController extends StateNotifier<SessionState> with LocatorMixin {
   void _setErrorState({SessionGetError error = const SessionGetError.notFound()}) {
     state = SessionState(
       session: null,
-      apiClient: createAnonymousApiClient(read<Environment>()),
       error: error,
     );
   }
 
-  void _setSuccessState(ApiSession session) {
+  void _setSuccessState(Session session) {
     state = SessionState(
       session: session,
-      apiClient: createAuthorizedApiClient(read<Environment>(), session),
       error: null,
     );
   }
@@ -95,9 +71,58 @@ class SessionController extends StateNotifier<SessionState> with LocatorMixin {
   void _setDefaultState() {
     state = SessionState(
       session: null,
-      apiClient: createAnonymousApiClient(read<Environment>()),
       error: null,
     );
+  }
+
+  IApiClient createDefaultAPiClient() {
+    final env = read<Environment>();
+
+    if (state.hasSession) {
+      return DefaultApiClient(
+        useHttp: env.useHttp,
+        port: env.port,
+        host: env.host,
+        headersFuture: _buildHeader(state.session),
+      );
+    } else {
+      return DefaultApiClient(
+        useHttp: env.useHttp,
+        host: env.host,
+        port: env.port,
+        headersFuture: {},
+      );
+    }
+  }
+
+  Future<Map<String, String>> _buildHeader(Session session) async {
+    final authorization = {
+      "Authorization": "Bearer ${session.token}",
+    };
+
+    final userAgent = await Future(() async {
+      String userAgent;
+      final packageInfo = await PackageInfo.fromPlatform();
+
+      if (Platform.isAndroid) {
+        final info = await DeviceInfoPlugin().androidInfo;
+        userAgent = "${packageInfo.packageName}/${packageInfo.version}.${packageInfo.buildNumber} (${Platform.operatingSystem}; ${info.version.release}; ${info.model};)";
+      } else if (Platform.isIOS) {
+        final info = await DeviceInfoPlugin().iosInfo;
+        userAgent = "${packageInfo.packageName}/${packageInfo.version}.${packageInfo.buildNumber} (${Platform.operatingSystem}; ${info.systemVersion}; ${info.utsname.machine};)";
+      } else {
+        userAgent = "${packageInfo.packageName}/${packageInfo.version}.${packageInfo.buildNumber} (${Platform.operatingSystem};)";
+      }
+
+      return {
+        "User-Agent": userAgent,
+      };
+    });
+
+    return {
+      ...authorization,
+      ...userAgent,
+    };
   }
 }
 

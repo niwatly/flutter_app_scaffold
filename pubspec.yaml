@@ -91,7 +91,7 @@ dependencies:
   flutter_app_components:
     git:
       url: "git@github.com:niwatly/flutter_app_components.git"
-      ref: master
+      ref: dev/0.0.7
 
   # アプリのローカルストレージに値を保存したい
   # https://pub.dev/packages/shared_preferences

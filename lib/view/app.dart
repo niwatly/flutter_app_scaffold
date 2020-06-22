@@ -111,8 +111,8 @@ class _App extends StatelessWidget {
       builder: (context, child) => DialogBuilder(
         okLabel: I18n().labelOk,
         cancelLabel: I18n().labelCancel,
-        confirmLabel: I18n().labelConfirm,
-        errorLabel: I18n().labelError,
+        confirmTitle: I18n().labelConfirm,
+        errorTitle: I18n().labelError,
         cancelStyle: context.texts.bodyText2.apply(
           color: context.colors.dark26,
         ),

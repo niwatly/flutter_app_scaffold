@@ -1,16 +1,13 @@
-import 'package:flutter_app_components/api_client/api_client.dart';
-import 'package:flutter_app_scaffold/repository/api/api_session.dart';
+import 'package:flutter_app_scaffold/controller/session/session.dart';
 import 'package:flutter_app_scaffold/repository/session_repository.dart';
 
 class SessionState {
-  final ApiSession session;
+  final Session session;
   final SessionGetError error;
-  final IApiClient apiClient;
 
   SessionState({
     this.session,
     this.error,
-    this.apiClient,
   });
 
   bool get hasError => error != null;

@@ -3,32 +3,30 @@ import 'dart:convert';
 
 import 'package:flutter_app_components/api_client/api_client.dart';
 import 'package:flutter_app_components/api_client/api_client_error.dart';
-import 'package:flutter_app_components/api_client/api_repository.dart';
+import 'package:flutter_app_scaffold/controller/session/session.dart';
 import 'package:flutter_app_scaffold/view/app.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app_scaffold/common.dart';
-import 'api/api_session.dart';
 
 abstract class ISessionRepository {
-  Future<ApiSession> get();
+  Future<Session> get();
 
   Future delete();
 
   Future<EmailAuthSuccess> postEmailAuth(String email, String password);
 }
 
-class SessionRepository implements ISessionRepository, IApiRepository {
+class SessionRepository implements ISessionRepository {
   static const String _preferenceKeySession = "session";
-  static ApiSession _cachedSession;
+  static Session _cachedSession;
 
-  @override
   final IApiClient apiClient;
 
   const SessionRepository(this.apiClient);
 
   @override
-  Future<ApiSession> get() async {
+  Future<Session> get() async {
     if (_cachedSession != null) {
       return _cachedSession;
     }
@@ -42,7 +40,7 @@ class SessionRepository implements ISessionRepository, IApiRepository {
     }
 
     final json = jsonDecode(str);
-    final session = ApiSession.fromJson(json);
+    final session = Session.fromJson(json);
 
     return _cachedSession = session;
   }
@@ -76,10 +74,10 @@ class SessionRepository implements ISessionRepository, IApiRepository {
     }
   }
 
-  Future<ApiSession> _createSessionFromResponseAndSave(Response response) {
+  Future<Session> _createSessionFromResponseAndSave(Response response) {
     final json = jsonDecode(response.body);
 
-    final session = ApiSession.fromJson(json);
+    final session = Session.fromJson(json);
 
     return SharedPreferences.getInstance()
         .catchError((error) => throw const SessionGetError(SessionGetErrorReason.CanNotAccessStorage))
@@ -87,18 +85,15 @@ class SessionRepository implements ISessionRepository, IApiRepository {
         .catchError((error) => throw const SessionGetError(SessionGetErrorReason.SaveFailed))
         .then((x) => _cachedSession = session);
   }
-
-  @override
-  void close() {}
 }
 
 class ConstantSessionRepository implements ISessionRepository {
-  final ApiSession _session;
+  final Session _session;
 
   const ConstantSessionRepository(this._session);
 
   @override
-  Future<ApiSession> get() => Future.value(_session);
+  Future<Session> get() => Future.value(_session);
 
   @override
   Future delete() async {}
@@ -121,7 +116,7 @@ class SessionGetError implements Exception {
 enum SessionGetErrorReason { CanNotAccessStorage, NotFound, SaveFailed }
 
 class EmailAuthSuccess {
-  final ApiSession session;
+  final Session session;
 
   const EmailAuthSuccess(this.session);
 }

@@ -108,8 +108,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: master
-      resolved-ref: "8d337afeec31dc263b1b4909b51b69ea8313a2a2"
+      ref: "dev/0.0.7"
+      resolved-ref: "6c842dedaa1c6e93765d5820b0f91242ca2a7163"
       url: "git@github.com:niwatly/flutter_app_components.git"
     source: git
     version: "0.0.5"
