@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_components/inapp_navigation/dialog_route.dart';
 import 'package:flutter_app_components/inapp_navigation/inapp_launcher.dart';
 import 'package:flutter_app_components/inapp_navigation/inapp_router.dart';
 import 'package:flutter_app_components/inapp_navigation/screen_arguments.dart';
@@ -73,7 +74,29 @@ class AppController extends StateNotifier<AppState> with LocatorMixin {
 
   Future showAskDialog({String title, String message}) => showDialog(state.dialogBuilder.ask(title: title, message: message));
 
-  Future<T> showLoadingDialog<T>(Future future, {String message}) => showDialog(state.dialogBuilder.loading(future: future, message: message));
+  Future<T> showLoadingDialog<T>(Future future, {String message}) async {
+    // 背景: futureの実行中にローディング表示をしたい
+    // 問題: ローディング表示に渡すfutureの例外は内部で握りつぶされるので、showLoadingDialogの呼び出し元は例外に気づけ無い
+    // 対応: futureをvalueとerrorを別途監視する
+
+    T value;
+    dynamic error;
+
+    future //
+        .then((v) => value = v)
+        .catchError((e) => error = e);
+
+    await showDialog(state.dialogBuilder.loading(future: future, message: message));
+
+    if (error != null) {
+      throw error;
+    }
+
+    return value;
+  }
+
+  Future<T> showCustomDialog<T>({WidgetBuilder builder}) => showDialog<T>(DialogRoute<T>(builder: builder));
+
 
   Future<int> showPickerDialog(List<String> candidates, {String title}) => showDialog(state.dialogBuilder.pick(candidates, title: title));
 
