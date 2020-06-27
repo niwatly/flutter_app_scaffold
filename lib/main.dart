@@ -1,9 +1,9 @@
-import 'package:flutter_app_scaffold/repository/api/api_session.dart';
 import 'package:flutter_app_scaffold/repository/session_repository.dart';
 
 import 'common.dart';
+import 'controller/session/session.dart';
 
-const _dev = ApiSession(
+const _dev = Session(
   userId: 1,
   token: "sample token",
 );
